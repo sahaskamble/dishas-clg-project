@@ -4,23 +4,36 @@ import { pb } from '../lib/pocketbase';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserMd, faBriefcase, faClock, faQuoteLeft } from '@fortawesome/free-solid-svg-icons';
+import { safeAsyncOperation } from '../lib/errorHandler';
 
 export default function TherapistInfoCard() {
     const [therapists, setTherapists] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const [isClient, setIsClient] = useState(false);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
+        setIsClient(true);
+
         const fetchData = async () => {
-            try {
-                setIsLoading(true);
-                const data = await pb.collection('therapist_profile').getFullList();
-                setTherapists(data);
-            } catch (error) {
-                console.log(error);
-            } finally {
+            // Only proceed if pb is available (client-side)
+            if (!pb) {
                 setIsLoading(false);
+                return;
             }
+
+            await safeAsyncOperation(
+                async () => {
+                    const data = await pb.collection('therapist_profile').getFullList({
+                        expand: 'user'
+                    });
+                    setTherapists(data);
+                },
+                setIsLoading,
+                setError
+            );
         };
+
         fetchData();
     }, []);
 
@@ -28,7 +41,19 @@ export default function TherapistInfoCard() {
         <div className="container mx-auto px-4 py-8">
             <h1 className="text-3xl font-bold text-center mb-8 text-purple-950">Our Therapists</h1>
 
-            {isLoading ? (
+            {error ? (
+                <div className="flex justify-center items-center h-64">
+                    <div className="text-center">
+                        <div className="text-red-600 text-lg mb-4">⚠️ {error}</div>
+                        <button
+                            onClick={() => window.location.reload()}
+                            className="bg-purple-900 text-white px-4 py-2 rounded-md hover:bg-purple-800"
+                        >
+                            Try Again
+                        </button>
+                    </div>
+                </div>
+            ) : isLoading ? (
                 <div className="flex justify-center items-center h-64">
                     <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-700"></div>
                 </div>

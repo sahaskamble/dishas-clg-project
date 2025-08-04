@@ -1,4 +1,5 @@
 'use client';
+
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
 config.autoAddCss = false;
@@ -6,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef } from 'react';
 import TherapistInfoCard from "./components/therapist_infocard";
-import Logout from "./components/logout";
+// import Logout from "./components/logout";
 import Header from './components/header';
 
 export default function Home() {
@@ -19,8 +20,6 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-purple-50">
       <Header />
-
-
       <section className="relative overflow-hidden">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
@@ -110,26 +109,26 @@ export default function Home() {
         <div className="card-overall flex flex-row space-x-20 transition-transform duration-500 ease-in-out ">
           <div className="sm-cards bg-[#ffdadf38] mt-10 ml-20 ">
             <div className="chota-card bg-[#dfbec3] ">
-              <Image src="/i1.png" width={70} height={60} alt="image" className="card-img" />
+              <Image src="/img1.png" width={70} height={60} alt="Choose Medical Service" className="card-img" />
             </div>
             <h1 className="text-[17px]   text-[#2d2e70] font-sans" >Choose The Right Medical <br /> Or Mental Health Service <br /> Tailored To Your Needs</h1>
           </div>
           <div className="sm-cards bg-[#ffdadf38] mt-10 ">
             <div className="chota-card bg-[#dfbec3] ">
-              <Image src="/i2.png" width={70} height={60} alt="image" className="card-img" />
+              <Image src="/img2.png" width={70} height={60} alt="Schedule Consultation" className="card-img" />
 
             </div>
             <h1 className="text-[17px]   text-[#2d2e70] font-sans" >Schedule A Secure Video <br /> Consultation With A  <br /> Certified Doctor Or <br /> Psychologist</h1>
           </div>
           <div className="sm-cards bg-[#ffdadf38] mt-10">
             <div className="chota-card bg-[#dfbec3] ">
-              <Image src="/i3.png" width={70} height={60} alt="image" className="card-img" />
+              <Image src="/img3.jpg" width={70} height={60} alt="Get Diagnosis" className="card-img" />
             </div>
 
             <h1 className="text-[17px]   text-[#2d2e70] font-sans" >Get An Accurate Diagnosis<br /> And Personalized Treatment  <br />Plan Instantly</h1></div>
           <div className="sm-cards bg-[#ffdadf38] mt-10">
             <div className="chota-card bg-[#dfbec3] ">
-              <Image src="/i4.png" width={70} height={60} alt="image" className="card-img " />
+              <Image src="/image.png" width={70} height={60} alt="Digital Prescription" className="card-img " />
             </div>
             <h1 className="text-[17px]   text-[#2d2e70] font-sans" >Access Your Digital <br /> Prescription, Follow-Ups, And <br /> Ongoing Support - Anytime <br /> Anywhere</h1>
           </div>

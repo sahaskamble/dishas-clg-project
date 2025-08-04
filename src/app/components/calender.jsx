@@ -8,10 +8,19 @@ export default function Calendar({ onSelectSlot, therapistId }) {
     const [selectedSlot, setSelectedSlot] = useState(null);
     const [availableSlots, setAvailableSlots] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [isClient, setIsClient] = useState(false);
 
     // Fetch available slots from the database
     useEffect(() => {
+        setIsClient(true);
+
         async function fetchAvailableSlots() {
+            // Only proceed if pb is available (client-side)
+            if (!pb) {
+                setLoading(false);
+                return;
+            }
+
             if (!therapistId) {
                 console.log("No therapistId provided to Calendar component");
                 setLoading(false);
